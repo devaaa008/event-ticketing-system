@@ -15,7 +15,7 @@ class RabbitMQService {
     }
 
     async connect() {
-        this.connection = await amqp.connect('amqp://localhost',{ heartbeat: 30 });
+        this.connection = await amqp.connect(process.env.RABBITMQ_URI||'amqp://localhost',{ heartbeat: 30 });
         this.channel = await this.connection.createChannel();
     }
 
@@ -32,13 +32,14 @@ class RabbitMQService {
             throw new Error('RabbitMQ channel not established');
         }
         await this.channel.assertQueue(queue, { durable: true });
-        this.channel.prefetch(1);
-        this.channel.consume(queue, async (msg) => {
+        await this.channel.prefetch(1);
+        await this.channel.consume(queue, async (msg) => {
             if (msg) {
                 await callback(msg);
                 this.channel!.ack(msg);
             }
         });
+        console.log("RabbitMQ connected  successfully")
     }
 }
 

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { EventController } from '../controllers/event.controller';
-import container from "../di/container";
+import container from "../../di/container";
 
 const router = Router();
 const eventController = container.get<EventController>(EventController)
