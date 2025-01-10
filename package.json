@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node dist/index.js",
     "dev": "nodemon",
+    "start-worker": "ts-node ./src/app.ts",
     "build": "tsc"
   },
   "repository": {
@@ -27,6 +28,8 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
+    "@types/amqplib": "^0.10.6",
+    "amqplib": "^0.10.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "inversify": "^6.2.1",
